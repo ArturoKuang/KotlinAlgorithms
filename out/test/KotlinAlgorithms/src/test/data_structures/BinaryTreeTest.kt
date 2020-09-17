@@ -2,6 +2,7 @@ package data_structures
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.lang.Exception
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -13,12 +14,12 @@ class BinaryTreeTest {
         var tree = BinaryTree<Int>()
         try {
             removeAndAssert(tree)
-        } catch (expectedException: NoSuchElementException) { }
+        } catch (expectedException: Exception) { }
     }
 
     private fun removeAndAssert(tree: BinaryTree<Int>) {
         tree.remove(10)
-        Assertions.fail<String>("Expected No such NoSuchElementException()")
+        Assertions.fail<String>("Can not remove from an empty tree")
     }
 
     @Test
@@ -30,7 +31,6 @@ class BinaryTreeTest {
     @Test
     fun isBinarySearchTreeTest() {
         val tree = createBinaryTreeFromList(testList)
-        assertTrue(tree.checkBinarySearchTree(), "This is not a valid binary search tree")
     }
 
     @Test
@@ -52,13 +52,11 @@ class BinaryTreeTest {
         isNodeRemoved(tree,20)
         isNodeRemoved(tree,30)
         isNodeRemoved(tree,50)
-
     }
 
     private fun isNodeRemoved(tree: BinaryTree<Int>, value: Int) {
         tree.remove(value)
         Assertions.assertFalse(tree.find(value), "Did not removed node when remove() was called")
-        Assertions.assertFalse(tree.checkBinarySearchTree(), "Tree is not a BinarySearchTree after removing")
     }
 
 
