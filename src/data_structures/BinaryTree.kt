@@ -9,6 +9,23 @@ class BinaryTree<T>: Collection<T> {
 
     public override var size: Int = 0
         private set
+    private var parent: Node<T>? = null
+
+    fun add(data: T) {
+
+    }
+
+    fun remove(data: T): Node<T>? {
+
+    }
+
+    fun find(data: T): Boolean {
+
+    }
+
+    fun find(node: Node<T>?): Boolean {
+
+    }
 
     override fun contains(element: T): Boolean {
         TODO("Not yet implemented")
@@ -24,5 +41,9 @@ class BinaryTree<T>: Collection<T> {
 
     override fun iterator(): Iterator<T> {
         TODO("Not yet implemented")
+    }
+
+    fun checkBinarySearchTree(): Boolean {
+
     }
 }
