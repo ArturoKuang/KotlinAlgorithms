@@ -39,7 +39,7 @@ class BinaryTree<T : Comparable<T>> : Collection<T> {
     fun remove(data: T): T {
         size--
         parent = remove(parent, data)
-        return data
+        return parent?.data!!
     }
 
     private fun remove(node: Node<T>?, data: T): Node<T>? {
