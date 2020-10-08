@@ -70,7 +70,7 @@ class CircularLinkedLIstTest {
         }
     }
 
-    private fun throwSuchElementException(f: () -> Unit ) {
+    fun throwSuchElementException(f: () -> Unit ) {
         try {
             f()
             Assertions.fail<String>("NoSuchElementException expected")
