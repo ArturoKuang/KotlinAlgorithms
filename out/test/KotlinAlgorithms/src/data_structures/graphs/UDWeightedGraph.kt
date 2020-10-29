@@ -1,6 +1,7 @@
 package data_structures.graphs
 
 import java.util.*
+import kotlin.NoSuchElementException as NoSuchElementException1
 
 class UDWeightedGraph<T> {
     data class Edge<T>(
@@ -36,11 +37,11 @@ class UDWeightedGraph<T> {
     }
 
     fun adjacentEdges(from: T): Collection<Edge<T>> {
-        return adjacent[from]!!
+        return adjacent[from] ?: throw(NoSuchElementException())
     }
 
     fun adjacentVertices(from: T): Collection<T> {
-        return adjacent[from]!!.map { it -> it.to }
+        return adjacent[from]?.map { it -> it.to } ?: throw(NoSuchElementException())
     }
 
     fun printAdjacent() {
@@ -61,5 +62,5 @@ fun main() {
     graph.addEdge("c", "d", 5)
     graph.printAdjacent()
 
-    println(graph.adjacentEdges("a").joinToString())
+    println(graph.adjacentVertices("g").joinToString())
 }
