@@ -12,7 +12,7 @@ class UDWeightedGraph<T> {
 
     var adjacent = mutableMapOf<T, MutableSet<Edge<T>>>()
     var edges = 0
-    val vertices
+    val nodeCount
         get() = adjacent.keys.count()
 
     fun addEdge(from: T, to: T, weight: Int) {
@@ -45,6 +45,10 @@ class UDWeightedGraph<T> {
 
     fun adjacentVertices(from: T): Collection<T> {
         return adjacent[from]?.map { it -> it.to } ?: throw(NoSuchElementException())
+    }
+
+    fun vertices(): Collection<T> {
+        return adjacent.keys
     }
 
     fun printAdjacent() {
