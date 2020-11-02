@@ -1,9 +1,8 @@
 package data_structures.graphs
 
 import java.util.*
-import kotlin.random.Random
 
-class Djikstra(private val graph: UDWeightedGraph<Int>, val from: Int) {
+class Dijkstra(private val graph: UDWeightedGraph<Int>, val from: Int) {
 
     data class Vertex(val node: Int, val distance: Double) : Comparable<Vertex> {
         override fun compareTo(other: Vertex): Int =
@@ -75,7 +74,7 @@ fun main() {
 
     graph.printAdjacent()
 
-    val djikstra = Djikstra(graph, 1)
+    val djikstra = Dijkstra(graph, 1)
 
     println(djikstra.shortestDistance(4))
     println(djikstra.pathTo(4).joinToString())
