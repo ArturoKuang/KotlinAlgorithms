@@ -29,7 +29,7 @@ class StringPermutationTest() {
 
     @Test
     fun nLetterTest() {
-        val string = "abcd"
+        val string = "abcdefgh"
         val result = stringPermutation.generatePermutation(string)
         var set = HashSet<String>()
         for (permutation in result) {
