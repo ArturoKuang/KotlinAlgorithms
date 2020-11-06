@@ -1,4 +1,4 @@
-package recursion
+package algorithms
 
 import java.util.*
 
