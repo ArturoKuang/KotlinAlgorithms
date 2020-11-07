@@ -21,9 +21,9 @@ fun subsets(nums: IntArray): List<List<Int>> {
 fun backtrack(nums: IntArray, start: Int, result: MutableList<List<Int>>, list: MutableList<Int>, hashSet: HashSet<List<Int>>)
 {
     if(hashSet.contains(list)) {
-        println("early exit")
         return
     }
+
     result.add(list.toMutableList())
     hashSet.add(list)
     for(i in start until nums.size){
@@ -34,6 +34,6 @@ fun backtrack(nums: IntArray, start: Int, result: MutableList<List<Int>>, list: 
 }
 
 fun main() {
-    val nums = intArrayOf(1,2,3,6,10,9,13,13)
+    val nums = intArrayOf(1,2,3)
     println(subsets(nums).joinToString())
 }

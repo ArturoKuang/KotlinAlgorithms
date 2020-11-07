@@ -1,6 +1,6 @@
 package data_structures.graphs
 
-class DFS(val graph: UDWeightedGraph<String>) {
+class DFS(private val graph: UDWeightedGraph<String>) {
 
     fun checkPathExist(start: String, end: String): Boolean {
         val visited = mutableMapOf<String, Boolean>().withDefault { false }
