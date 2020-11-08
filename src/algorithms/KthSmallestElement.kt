@@ -63,7 +63,7 @@ class KthSmallestElement(private val array: List<Int>) {
             k: Int): Int {
 
         val size = right - left + 1
-        if(k > 0 && k < size) {
+        if(k in 1 until size) {
             var i = 0
             val medians = mutableListOf<Int>()
             val groupSize = size / 5
@@ -87,14 +87,14 @@ class KthSmallestElement(private val array: List<Int>) {
             val pos = medianSelectPartition(list, left, right, medOfMed)
 
             // If position is same as k
-            val positionIndex = pos - left
-            val kIndex = k
-            if (positionIndex == kIndex)
+            val positionIndex = pos - left // new index of position in the new list from left to right
+            if (positionIndex == k)
                 return list[pos]
 
-            if (positionIndex > kIndex)
+            if (positionIndex > k)
                 return selection(list, left, pos - 1, k)
 
+            //k - pos + left - 1 --> k - size = index away from start
             return selection(list, pos + 1, right, k - pos + left - 1)
 
         }
@@ -145,8 +145,8 @@ class KthSmallestElementTest {
             assertEquals(expected, result)
         }
 
-        expected = sortedList[2]
-        result = kthSmallestElement.medianSelect(2)
+        expected = sortedList[10]
+        result = kthSmallestElement.medianSelect(10)
 
         assertEquals(expected, result)
     }
