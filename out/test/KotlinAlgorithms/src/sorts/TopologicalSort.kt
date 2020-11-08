@@ -1,5 +1,7 @@
 package sorts
 
+import kotlin.math.min
+
 
 data class Edge(var from: Int, var to: Int, var weight: Int)
 
@@ -10,13 +12,12 @@ private fun dfs(
     visited[at] = true
     val edges = graph[at]
 
-    edges?.forEach { (_, to) ->
-        if (!visited[to]) {
-            index = dfs(index, to, visited, ordering, graph)
-        }
-    }
+    if (edges != null)
+        for ((_, to) in edges)
+            if (!visited[to])
+                index = dfs(index, to, visited, ordering, graph)
 
-    ordering[i] = at
+    ordering[index] = at
     return index - 1
 }
 
@@ -26,13 +27,36 @@ fun topologicalSort(graph: Map<Int, List<Edge>>, numNodes: Int): IntArray {
     var i = numNodes - 1
 
     for (at in 0 until numNodes) {
-        if (!visited[at])
-        {
+        if (!visited[at]) {
             i = dfs(i, at, visited, ordering, graph)
         }
     }
 
     return ordering
+}
+
+fun dagShortestPath(graph: Map<Int, List<Edge>>, start: Int, numNodes: Int): Array<Int> {
+    val sortedGraph: IntArray = topologicalSort(graph, numNodes)
+    val dist = Array<Int>(numNodes) { Int.MAX_VALUE }
+    dist[start] = 0
+
+    for (i in sortedGraph.indices) {
+        val nodeIndex: Int = sortedGraph[i]
+        val adjacentEdges = graph[nodeIndex]
+
+        if (adjacentEdges != null) {
+            for (edge in adjacentEdges) {
+                val newDist = dist[nodeIndex]!! + edge.weight
+                if (dist[edge.to] == Int.MAX_VALUE) {
+                    dist[edge.to] = newDist
+                }
+
+                dist[edge.to] = min(newDist, dist[edge.to])
+            }
+        }
+    }
+
+    return dist
 }
 
 fun main() {
@@ -53,4 +77,13 @@ fun main() {
 
     val ordering: IntArray = topologicalSort(graph, N)
     println(ordering.contentToString())
+
+    val dists: Array<Int> = dagShortestPath(graph, 0, N)
+
+    // Find the shortest path from 0 to 4 which is 8.0
+    println(dists[4])
+
+    // Find the shortest path from 0 to 6 which
+    // is null since 6 is not reachable!
+    println(dists[6])
 }
