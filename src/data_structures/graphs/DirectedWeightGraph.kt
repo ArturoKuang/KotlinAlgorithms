@@ -1,8 +1,9 @@
 package data_structures.graphs
 
-import java.util.*
+import java.util.NoSuchElementException
 
-class UDWeightedGraph<T> {
+class DirectedWeightGraph<T> {
+
     var adjacent = mutableMapOf<T, MutableSet<Edge<T>>>()
     var edges = 0
     val nodeCount
@@ -14,13 +15,7 @@ class UDWeightedGraph<T> {
             adjacent[from] = mutableSetOf()
         }
 
-        if(adjacent[to] == null) {
-            adjacent[to] = mutableSetOf()
-        }
-
         adjacent[from]?.add(edge)
-        edge = Edge(to, from, weight)
-        adjacent[to]?.add(edge)
         edges++
     }
 
@@ -49,6 +44,4 @@ class UDWeightedGraph<T> {
             println("$t: ${u.joinToString()} ")
         }
     }
-
 }
-
