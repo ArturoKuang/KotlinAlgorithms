@@ -41,7 +41,42 @@ private fun dfsCycleDetect(
     return false
 }
 
-fun findCyclesUndirectedGraph(graph: UDWeightedGraph<Int>): Boolean {
+fun findCyclesUndirectedGraph(graph: UDWeightedGraph<String>): Boolean {
+    var visited = mutableSetOf<String>()
+    for(node in graph.vertices()){
+        if(visited.contains(node)) {
+            continue
+        }
+
+        if(dfsCycleUDGraph(graph, visited, node, "")) {
+            return true
+        }
+    }
+
+    return false
+}
+
+private fun dfsCycleUDGraph(
+        graph: UDWeightedGraph<String>,
+        visited: MutableSet<String>,
+        current: String,
+        parent: String): Boolean {
+
+    visited.add(current)
+    val neighbors = graph.vertices()
+
+    for(neighbor in neighbors) {
+        if(parent == neighbor)
+            continue
+
+        if(visited.contains(neighbor)) {
+            return true
+        }
+
+        if(dfsCycleUDGraph(graph, visited, neighbor, current)) {
+            return true
+        }
+    }
     return false
 }
 
@@ -72,6 +107,26 @@ class CycleTest() {
 
     @Test
     fun undirectedGraph() {
-
+        val graph = UDWeightedGraph<String>()
+        //https://visualgo.net/en/graphds
+        //          b
+        //         /  \
+        //        a -- c
+        //        | \ /
+        //        |  d
+        //        | /
+        //        e
+        graph.addEdge("a", "b", 1)
+        graph.addEdge("a", "c", 1)
+        graph.addEdge("a", "d", 1)
+        graph.addEdge("a", "e", 1)
+        graph.addEdge("b", "c", 1)
+        graph.addEdge("c","a", 1)
+        graph.addEdge("c","b", 1)
+        graph.addEdge("c","d", 1)
+        graph.addEdge("d", "a", 1)
+        graph.addEdge("d", "c", 1)
+        graph.addEdge("d", "e", 1)
+        assert(findCyclesUndirectedGraph(graph))
     }
 }
