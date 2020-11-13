@@ -12,7 +12,7 @@ class Dijkstra(private val graph: UDWeightedGraph<Int>, val from: Int) {
     private val priorityQueue = PriorityQueue<Vertex>()
     private val visited = mutableMapOf<Int, Boolean>().withDefault { false }
     private val distTo = mutableMapOf<Int, Double>()
-    private val edgeTo: Array<UDWeightedGraph.Edge<Int>?> = arrayOfNulls(graph.nodeCount)
+    private val edgeTo: Array<Edge<Int>?> = arrayOfNulls(graph.nodeCount)
 
     init {
         for (vertex in graph.vertices()) {

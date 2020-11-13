@@ -1,15 +1,8 @@
 package data_structures.graphs
 
 import java.util.*
-import kotlin.NoSuchElementException as NoSuchElementException1
 
 class UDWeightedGraph<T> {
-    data class Edge<T>(
-            val from: T,
-            val to: T,
-            val weight: Int
-    )
-
     var adjacent = mutableMapOf<T, MutableSet<Edge<T>>>()
     var edges = 0
     val nodeCount
@@ -18,11 +11,11 @@ class UDWeightedGraph<T> {
     fun addEdge(from: T, to: T, weight: Int) {
         var edge = Edge(from, to, weight)
         if(adjacent[from] == null) {
-            adjacent[from] = mutableSetOf<Edge<T>>()
+            adjacent[from] = mutableSetOf()
         }
 
         if(adjacent[to] == null) {
-            adjacent[to] = mutableSetOf<Edge<T>>()
+            adjacent[to] = mutableSetOf()
         }
 
         adjacent[from]?.add(edge)
