@@ -1,6 +1,8 @@
 package data_structures.graphs
 
 import org.junit.jupiter.api.Test
+import java.util.*
+import kotlin.math.min
 import kotlin.test.assertFalse
 
 fun findCyclesDirectedGraph(graph: DirectedWeightGraph<Int>): Boolean {
@@ -21,12 +23,12 @@ private fun dfsCycleDetect(
         visited: MutableList<Boolean>,
         recStack: MutableList<Boolean>): Boolean {
 
-    if(visited[node]) {
-        return false
-    }
-
     if(recStack[node]) {
         return true
+    }
+
+    if(visited[node]) {
+        return false
     }
 
     visited[node] = true
@@ -80,6 +82,65 @@ private fun dfsCycleUDGraph(
     return false
 }
 
+var id = 0
+var sccCount = 0
+val stack = Stack<Int>()
+
+private const val UNVISITED = -1
+//strongly connected components
+fun findSCC(graph: DirectedWeightGraph<Int>): List<Int> {
+    var ids = MutableList<Int>(graph.nodeCount) { UNVISITED }
+    var low = MutableList<Int>(graph.nodeCount) { 0 }
+    var onStack = MutableList<Boolean>(graph.nodeCount) { false }
+
+    for(node in graph.vertices()) {
+        if(ids[node] == UNVISITED) {
+            continue
+        }
+
+        dfsSCC(graph, node, ids, low, onStack)
+    }
+    return low
+}
+
+
+fun dfsSCC(
+        graph: DirectedWeightGraph<Int>,
+        node: Int,
+        ids: MutableList<Int>,
+        low: MutableList<Int>,
+        onStack: MutableList<Boolean>) {
+
+    stack.push(node)
+    onStack[node] = true
+    low[node] = id
+    ids[node] = id
+    id++
+
+    val neighbors = graph.adjacentVertices(node)
+    for (neighbor in neighbors) {
+        if(ids[neighbor] == UNVISITED) {
+            dfsSCC(graph, neighbor, ids, low, onStack)
+        }
+        if(onStack[neighbor]) {
+            low[neighbor] = min(low[neighbor], low[node])
+        }
+    }
+
+    if(ids[node] == low[node]) {
+        while (stack.isNotEmpty()) {
+            var stackNode = stack.pop()
+            onStack[stackNode] = false
+
+            low[stackNode] = sccCount
+            if (stackNode == node) break
+        }
+
+        sccCount++
+    }
+}
+
+
 
 class CycleTest() {
 
@@ -87,6 +148,8 @@ class CycleTest() {
     fun testDirectedGraph() {
         var graph = createDGCycle()
         assert(findCyclesDirectedGraph(graph))
+
+        println(findSCC(graph))
     }
 
     private fun createDGCycle(): DirectedWeightGraph<Int> {
@@ -96,12 +159,7 @@ class CycleTest() {
         graph.addEdge(1, 2, 1)
         graph.addEdge(1, 3, 1)
         graph.addEdge(2, 1, 1)
-        graph.addEdge(3, 1, 1)
-        graph.addEdge(3, 4, 1)
-        graph.addEdge(4, 2, 1)
-        graph.addEdge(4, 3, 1)
-        graph.addEdge(4, 5, 1)
-        graph.addEdge(5, 6, 1)
+        graph.addEdge(2, 0, 1)
         return graph
     }
 
@@ -127,6 +185,16 @@ class CycleTest() {
         graph.addEdge("d", "a", 1)
         graph.addEdge("d", "c", 1)
         graph.addEdge("d", "e", 1)
+
         assert(findCyclesUndirectedGraph(graph))
+
+
+        val graph2 = UDWeightedGraph<String>()
+        graph.addEdge("d", "a", 1)
+        graph.addEdge("d", "c", 1)
+        graph.addEdge("d", "e", 1)
+        graph.addEdge("a", "e", 1)
+
+        assertFalse(findCyclesUndirectedGraph(graph2))
     }
 }
