@@ -88,6 +88,7 @@ val stack = Stack<Int>()
 
 private const val UNVISITED = -1
 //strongly connected components
+//https://www.youtube.com/watch?v=wUgWX0nc4NY&t=370s
 fun findSCC(graph: DirectedWeightGraph<Int>): List<Int> {
     var ids = MutableList<Int>(graph.nodeCount) { UNVISITED }
     var low = MutableList<Int>(graph.nodeCount) { 0 }
@@ -166,7 +167,6 @@ class CycleTest() {
     @Test
     fun undirectedGraph() {
         val graph = UDWeightedGraph<String>()
-        //https://visualgo.net/en/graphds
         //          b
         //         /  \
         //        a -- c
