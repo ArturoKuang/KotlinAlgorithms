@@ -16,16 +16,16 @@ class QuickSort : Sort {
 
     private fun <T : Comparable<T>> partition(arr: Array<T>, low: Int, high: Int): Int {
         val pivot =  arr[high]
-        var partitionIndex = low - 1
+        var partitionIndex = low
 
         for(index in low until high) {
             if(arr[index] < pivot) {
-                partitionIndex++
                 arr.swap(partitionIndex, index)
+                partitionIndex++
             }
         }
-        arr.swap(partitionIndex + 1, high)
-        return partitionIndex + 1
+        arr.swap(partitionIndex, high)
+        return partitionIndex
     }
 
 }
