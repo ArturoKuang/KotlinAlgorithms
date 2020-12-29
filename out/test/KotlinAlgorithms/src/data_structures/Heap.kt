@@ -7,7 +7,6 @@ import kotlin.collections.ArrayList
 private const val EMPTY_HEAP_EXCEPTION = "heap is empty!"
 
 class Heap {
-    private var capacity = 100
     private var array = ArrayList<Int>()
     private var count: Int = 0
         get() = array.size

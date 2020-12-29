@@ -164,7 +164,7 @@ class CycleTest() {
     }
 
     @Test
-    fun undirectedGraph() {
+    fun undirectedGraph() { 
         val graph = UDWeightedGraph<String>()
         //https://visualgo.net/en/graphds
         //          b
