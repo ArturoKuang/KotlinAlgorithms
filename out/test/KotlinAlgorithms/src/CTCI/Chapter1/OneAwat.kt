@@ -13,7 +13,7 @@ fun oneEditAway(a: String, b: String): Boolean {
     var shorterString = a
     var longerString = b
 
-    if(aLength > bLength) {
+    if (aLength > bLength) {
         shorterString = b
         longerString = a
     } else {
@@ -24,13 +24,13 @@ fun oneEditAway(a: String, b: String): Boolean {
     var shortIndex = 0
     var longIndex = 0
     var foundDifference = false
-    while(shortIndex < shorterString.length && longIndex < longerString.length) {
-        if(shorterString[shortIndex] != longerString[longIndex]) {
-            if(foundDifference) {
+    while (shortIndex < shorterString.length && longIndex < longerString.length) {
+        if (shorterString[shortIndex] != longerString[longIndex]) {
+            if (foundDifference) {
                 return false
             }
             foundDifference = true
-            if(aLength == bLength) {
+            if (aLength == bLength) {
                 shortIndex++
             }
         } else {
@@ -41,10 +41,9 @@ fun oneEditAway(a: String, b: String): Boolean {
     return true
 }
 
-
-class Test() {
+class OneAwayTest() {
     @Test
-    fun oneAwayTest() {
+    fun test() {
         compareEdits("pales", "pale", true)
         compareEdits("pale", "ple", true)
         compareEdits("pale", "bale", true)
@@ -60,5 +59,4 @@ class Test() {
             assertFalse(oneEditAway(wordA, wordB), "Testing $wordA, $wordB")
         }
     }
-
 }
