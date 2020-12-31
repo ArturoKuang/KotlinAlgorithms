@@ -24,7 +24,7 @@ fun backtrack(nums: IntArray, start: Int, result: MutableList<List<Int>>, list: 
         return
     }
 
-    result.add(list.toMutableList())
+    result.add(list)
     hashSet.add(list)
     for(i in start until nums.size){
         list.add(nums[i])

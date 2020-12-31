@@ -165,7 +165,7 @@ class CycleTest() {
     }
 
     @Test
-    fun undirectedGraph() {
+    fun undirectedGraph() { 
         val graph = UDWeightedGraph<String>()
         //          b
         //         /  \
