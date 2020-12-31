@@ -1,20 +1,17 @@
 package CTCI.Chapter1
 
-import org.junit.jupiter.api.Test
-
 //Times visited : 1
 fun rotateMatrix(matrix: MutableList<MutableList<Int>>) {
     val length = matrix.size - 1
     for (layer in 0 until matrix.size / 2) {
-        val first = layer
         val last = length - layer
-        for (i in first until last) {
-            val offset = i - first
-            var top = matrix[first][i]
+        for (i in layer until last) {
+            val offset = i - layer
+            var top = matrix[layer][i]
             // left -> top
-            matrix[first][i] = matrix[last - offset][first]
+            matrix[layer][i] = matrix[last - offset][layer]
             // bottom -> left
-            matrix[last - offset][first] = matrix[last][last - offset]
+            matrix[last - offset][layer] = matrix[last][last - offset]
             // right -> bottom
             matrix[last][last - offset] = matrix[i][last]
             // top -> right
