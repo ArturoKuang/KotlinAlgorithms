@@ -6,10 +6,7 @@ import kotlin.random.Random
 data class TreeNode(
         var data: Int,
         var left: TreeNode? = null,
-        var right: TreeNode? = null) {
-
-
-}
+        var right: TreeNode? = null)
 
 fun createMinimalBST(arr: IntArray): TreeNode? {
     return createMinimalBST(0, arr.size - 1, arr)
