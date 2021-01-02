@@ -1,7 +1,6 @@
 package CTCI.Chapter3
 
 import java.util.*
-import kotlin.random.Random.Default.nextInt
 
 fun sortStack(stack: ArrayDeque<Int>) {
     val sortedStack = ArrayDeque<Int>()

@@ -14,7 +14,7 @@ class DFS(private val graph: UDWeightedGraph<String>) {
 
         var result = false
         if(currentNode == end) {
-            result = true
+            return true
         }
 
         visited[currentNode] = true
