@@ -2,7 +2,6 @@ package CTCI.Chapter1
 
 import org.junit.jupiter.api.Test
 
-//Times visited : 1
 fun compressString(word: String): String {
     val compressedString = StringBuilder()
     var consecutiveCount = 0

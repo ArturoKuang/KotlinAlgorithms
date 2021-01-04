@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test
 import kotlin.math.abs
 import kotlin.test.assertFalse
 
-//Times visited : 1
 fun oneEditAway(a: String, b: String): Boolean {
     val aLength = a.length
     val bLength = b.length

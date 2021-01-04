@@ -1,6 +1,5 @@
 package CTCI.Chapter1
 
-//Times visited : 1
 fun rotateMatrix(matrix: MutableList<MutableList<Int>>) {
     val length = matrix.size - 1
     for (layer in 0 until matrix.size / 2) {
