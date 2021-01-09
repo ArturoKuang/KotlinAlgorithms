@@ -120,7 +120,7 @@ fun climbingStairsCheapestPath(numStairs: Int, steps: Int, price: IntArray): Lis
     val path = mutableListOf<Int>()
     path.add(numStairs)
     var currentStair = numStairs
-    while (currentStair > 0) {
+    while (currentStair != 0) {
         val prevStair = from[currentStair]
         path.add(from[currentStair])
         currentStair = prevStair
