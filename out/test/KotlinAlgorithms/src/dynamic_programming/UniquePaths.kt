@@ -21,6 +21,8 @@ Problem:
 // Objective function: F(i,j)
 // Base cases: 1x1 = 1, 2x2 = 2
 // recurrence relation: F(i,j) = F(i-1,j) + F(i, j-1)
+// Runtime: 0(mn)
+// Spacetime: 0(mn)
 fun uniquePaths(m: Int, n: Int): Int {
     val dp = MutableList(m) {
         MutableList(n) { 0 }
@@ -29,6 +31,36 @@ fun uniquePaths(m: Int, n: Int): Int {
 
     for (i in 0 until m) {
         for(j in 0 until n) {
+            if (i > 0 && j > 0) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+            } else if (i > 0) {
+                dp[i][j] = dp[i - 1][j]
+            } else if (j > 0) {
+                dp[i][j] = dp[i][j - 1]
+            }
+        }
+    }
+
+    return dp[m-1][n-1]
+}
+
+// Problem given a MxN matrix find total number of ways to get to x,y with given bad cells
+fun uniquePathsBadCells(badCells: List<List<Int>>): Int {
+    val m = badCells.size
+    val n = badCells[0].size
+
+    val dp = MutableList(m) {
+        MutableList(n) { 0 }
+    }
+    dp[0][0] = 1
+
+    for (i in 0 until m) {
+        for(j in 0 until n) {
+            if(badCells[i][j] == 1) {
+                dp[i][j] = 0
+                continue
+            }
+
             if (i > 0 && j > 0) {
                 dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
             } else if (i > 0) {
