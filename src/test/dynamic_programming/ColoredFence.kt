@@ -5,6 +5,8 @@ package dynamic_programming
 // You have to paint all the posts such that no more than two adjacent fence posts have the same color.
 // Return the total number of ways you can paint the fence.
 
+// Runtime: 0(n)
+// Spacetime: 0(n)
 fun numWays(n: Int): Int {
     val dp = List(n + 1) {
         IntArray(2)
