@@ -13,17 +13,17 @@ fun coinChange(n: Int): Int {
     val dp = IntArray(n + 1)
     dp[0] = 1
 
-    for(i in 1..n) {
+    for (i in 1..n) {
         dp[i] += dp[i - 1]
-        if(i >= 3) {
+        if (i >= 3) {
             dp[i] += dp[i - 3]
         }
 
-        if(i >= 5) {
+        if (i >= 5) {
             dp[i] += dp[i - 5]
         }
 
-        if(i >= 10) {
+        if (i >= 10) {
             dp[i] += dp[i - 10]
         }
     }
@@ -43,16 +43,15 @@ fun coinChange(n: Int, numCoins: Int, denominations: IntArray): Int {
     }
     dp[0][0] = 1
 
-    for(denomination in denominations) {
-        if(denomination < n) {
-            dp[denomination][1] = 1
-        }
-    }
-
     for (i in 1..n) {
-        for(j in 1..numCoins) {
+        for (j in 1..numCoins) {
+            if (i > 0 && j == 0) {
+                dp[i][j] = 0
+                continue
+            }
+
             for (denomination in denominations) {
-                if(i > denomination) {
+                if (i >= denomination) {
                     dp[i][j] += dp[i - denomination][j - 1]
                 }
             }
@@ -62,6 +61,56 @@ fun coinChange(n: Int, numCoins: Int, denominations: IntArray): Int {
     return dp[n][numCoins]
 }
 
+fun coinChangeNoMoreTCoins(n: Int, t: Int, coins: IntArray): Int {
+    val dp = MutableList(n + 1) {
+        MutableList(t + 1) { 0 }
+    }
+    dp[0][0] = 1
+
+    for (i in 1..n) {
+        for (j in 1..t) {
+            if (i > 0 && j == 0) {
+                dp[i][j] = 0
+                continue
+            }
+
+            if (i == 0 && j > 0) {
+                dp[i][j] = 1
+            }
+
+            for (coin in coins) {
+                if (i >= coin) {
+                    dp[i][j] += dp[i - coin][j - 1]
+                }
+            }
+        }
+    }
+
+    return dp[n][t]
+}
+
+// 1 == even, 0 == odd
+fun coinChangeEvenCoins(n: Int, coins: IntArray): Int {
+    val dp = MutableList(n + 1) {
+        MutableList(2) { 0 }
+    }
+    dp[0][0] = 0
+    dp[0][1] = 1
+    for (i in 1..n) {
+        for (coin in coins) {
+            for (j in 0 until 2) {
+                if (i >= coin) {
+                    dp[i][j] += dp[i-coin][1-j]
+                }
+            }
+        }
+    }
+
+    dp[1][0] = 1
+
+    println(dp.joinToString())
+    return dp[n][1]
+}
 
 
 
