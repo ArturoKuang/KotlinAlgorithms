@@ -73,7 +73,7 @@ fun climbStairsKStepsSkipRed(numStairs: Int, steps: Int, stairs: IntArray): Int 
 // Location of answer: F(n)
 // Runtime: 0(nk) n = total # of stairs, k = # of steps
 // Spacetime: 0(k)
-fun climbingStairsCheapestPath(numStairs: Int, steps: Int, price: IntArray): Int {
+fun climbingStairsCheapestTotal(numStairs: Int, steps: Int, price: IntArray): Int {
     val dp = IntArray(steps)
     dp[0] = 0
     dp[1] = price[1]
@@ -91,5 +91,41 @@ fun climbingStairsCheapestPath(numStairs: Int, steps: Int, price: IntArray): Int
     }
 
     return dp[numStairs % steps]
+}
+
+fun climbingStairsCheapestPath(numStairs: Int, steps: Int, price: IntArray): List<Int> {
+    val dp = IntArray(numStairs + 1)
+    val from = IntArray(numStairs + 1)
+    dp[0] = 0
+    dp[1] = price[1]
+
+    for (i in 2..numStairs) {
+        var minTotal = Int.MAX_VALUE
+        for(j in 1..steps) {
+            val prevStep = i - j
+            if (prevStep < 0) {
+                continue
+            }
+
+            if(dp[prevStep] <= minTotal) {
+                minTotal = dp[prevStep]
+                from[i] = prevStep
+            }
+        }
+
+        dp[i] = minTotal + price[i]
+    }
+
+
+    val path = mutableListOf<Int>()
+    path.add(numStairs)
+    var currentStair = numStairs
+    while (currentStair != 0) {
+        val prevStair = from[currentStair]
+        path.add(from[currentStair])
+        currentStair = prevStair
+    }
+
+    return path.reversed()
 }
 

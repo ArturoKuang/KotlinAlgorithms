@@ -26,8 +26,16 @@ internal class ClimbingStairsKtTest {
     }
 
     @Test
+    fun climbingStairsCheapestTotal() {
+        assert(6 == climbingStairsCheapestTotal(3, 2, intArrayOf(0, 3, 2, 4)))
+        assert(7 == climbingStairsCheapestTotal(4, 2, intArrayOf(0, 3, 2, 4, 5)))
+    }
+
+    @Test
     fun climbingStairsCheapestPath() {
-        assert(6 == dynamic_programming.climbingStairsCheapestPath(3, 2, intArrayOf(0, 3, 2, 4)))
-        assert(7 == dynamic_programming.climbingStairsCheapestPath(4, 2, intArrayOf(0, 3, 2, 4, 5)))
+        val path = climbingStairsCheapestPath(8, 2, intArrayOf(0, 3, 2, 4, 6, 1, 1, 5, 3))
+        val expected = listOf(0, 2, 3, 5, 6, 8)
+        println(path)
+        assert(expected == path)
     }
 }
