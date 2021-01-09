@@ -78,6 +78,8 @@ fun uniquePathsBadCells(badCells: List<List<Int>>): Int {
     return dp[m-1][n-1]
 }
 
+// Runtime: 0(mn)
+// Spacetime: 0(mn)
 fun uniquePathMaxProfit(grid: List<List<Int>>): Int {
     val m = grid.size
     val n = grid[0].size
@@ -102,6 +104,58 @@ fun uniquePathMaxProfit(grid: List<List<Int>>): Int {
     }
 
     return dp[m - 1][n - 1]
+}
+
+fun uniquePathMaxProfitPath(grid: List<List<Int>>): List<List<Char>> {
+    val m = grid.size
+    val n = grid[0].size
+
+    val dp = MutableList(m) {
+        MutableList(n) { 0 }
+    }
+
+    val from = MutableList(m) {
+        MutableList(n) { Pair(0,0) }
+    }
+
+    dp[0][0] = grid[0][0]
+
+    for(i in 0 until m) {
+        for(j in 0 until n) {
+            if (i > 0 && j > 0) {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+                if(dp[i - 1][j] > dp[i][j - 1]) {
+                    from[i][j] = Pair(i - 1, j)
+                } else {
+                    from[i][j] = Pair(i, j - 1)
+                }
+            } else if (i > 0) {
+                dp[i][j] = dp[i - 1][j]
+                from[i][j] = Pair(i - 1, j)
+            } else if (j > 0) {
+                dp[i][j] = dp[i][j - 1]
+                from[i][j] = Pair(i, j - 1)
+            }
+
+            dp[i][j] += grid[i][j]
+        }
+    }
+
+   var result = MutableList(m) {
+       MutableList(n) { '-' }
+   }
+
+    var currentCol = m - 1
+    var currentRow = n - 1
+    result[currentCol][currentRow] = 'x'
+
+    while (currentCol > 0 || currentRow > 0) {
+        val prevCell = from[currentCol][currentRow]
+        currentCol = prevCell.first
+        currentRow = prevCell.second
+        result[currentCol][currentRow] = 'x'
+    }
+    return result
 }
 
 
