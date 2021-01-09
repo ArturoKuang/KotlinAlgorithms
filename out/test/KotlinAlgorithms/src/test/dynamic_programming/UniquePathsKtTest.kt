@@ -16,7 +16,7 @@ internal class UniquePathsKtTest {
     fun uniquePathsBadCells() {
         assert(1 == uniquePathsBadCells(
                 listOf(
-                        listOf(0,0)
+                        listOf(0, 0)
                 )
         ))
 
@@ -25,6 +25,25 @@ internal class UniquePathsKtTest {
                         listOf(0, 0, 0, 0),
                         listOf(0, 0, 1, 1),
                         listOf(0, 0, 0, 0)
+                )
+        ))
+    }
+
+    @Test
+    fun uniquePathMaxProfit() {
+        assert(13 == uniquePathMaxProfit(
+                listOf(
+                        listOf(0, 2, 2, 1),
+                        listOf(3, 1, 1, 1),
+                        listOf(4, 4, 2, 0)
+                )
+        ))
+
+        assert(154 == uniquePathMaxProfit(
+                listOf(
+                        listOf(0, 2, 2, 50),
+                        listOf(3, 1, 1, 100),
+                        listOf(4, 4, 2, 0)
                 )
         ))
     }

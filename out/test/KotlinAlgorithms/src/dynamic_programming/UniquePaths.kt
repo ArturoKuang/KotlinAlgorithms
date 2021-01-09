@@ -1,5 +1,7 @@
 package dynamic_programming
 
+import java.lang.Integer.max
+
 /*
 Problem:
 	Unique Paths
@@ -45,6 +47,8 @@ fun uniquePaths(m: Int, n: Int): Int {
 }
 
 // Problem given a MxN matrix find total number of ways to get to x,y with given bad cells
+// Runtime: 0(mn)
+// Spacetime: 0(mn)
 fun uniquePathsBadCells(badCells: List<List<Int>>): Int {
     val m = badCells.size
     val n = badCells[0].size
@@ -73,4 +77,33 @@ fun uniquePathsBadCells(badCells: List<List<Int>>): Int {
 
     return dp[m-1][n-1]
 }
+
+fun uniquePathMaxProfit(grid: List<List<Int>>): Int {
+    val m = grid.size
+    val n = grid[0].size
+
+    val dp = MutableList(m) {
+        MutableList(n) { 0 }
+    }
+    dp[0][0] = grid[0][0]
+
+    for(i in 0 until m) {
+        for(j in 0 until n) {
+            if (i > 0 && j > 0) {
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+            } else if (i > 0) {
+                dp[i][j] = dp[i - 1][j]
+            } else if (j > 0) {
+                dp[i][j] = dp[i][j - 1]
+            }
+
+            dp[i][j] += grid[i][j]
+        }
+    }
+
+    return dp[m - 1][n - 1]
+}
+
+
+
 
