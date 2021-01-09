@@ -24,4 +24,10 @@ internal class ClimbingStairsKtTest {
     fun climbStairsKStepsSkipRed() {
         assert(2 == climbStairsKStepsSkipRed(7, 3, intArrayOf(1, 3, 4)))
     }
+
+    @Test
+    fun climbingStairsCheapestPath() {
+        assert(6 == dynamic_programming.climbingStairsCheapestPath(3, 2, intArrayOf(0, 3, 2, 4)))
+        assert(7 == dynamic_programming.climbingStairsCheapestPath(4, 2, intArrayOf(0, 3, 2, 4, 5)))
+    }
 }
