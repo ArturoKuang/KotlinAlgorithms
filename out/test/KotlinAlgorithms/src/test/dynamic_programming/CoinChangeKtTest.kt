@@ -34,4 +34,11 @@ internal class CoinChangeKtTest {
         assert(107 == coinChangeUniqueWays(75, intArrayOf(2, 3, 5)))
         assert(3 == coinChangeUniqueWays(10, intArrayOf(4, 1)))
     }
+
+    @Test
+    fun changeMaking() {
+        assert(7 == changeMaking(29, intArrayOf(1, 3, 5)))
+        assert(-1 == changeMaking(1, intArrayOf(2, 3, 5)))
+        assert(6 == changeMaking(56, intArrayOf(15, 4, 3)))
+    }
 }

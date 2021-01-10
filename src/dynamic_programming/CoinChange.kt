@@ -1,5 +1,7 @@
 package dynamic_programming
 
+import kotlin.math.min
+
 // Given an unlimited supply of coin of given denominations (ex: 1, 3, 5, 10),
 // find the total number of ways to make a change of size n
 
@@ -110,6 +112,63 @@ fun coinChangeEvenCoins(n: Int, coins: IntArray): Int {
 }
 
 
+
+/*
+n = 3 coins = 1,2,3
+No duplicates
+for _, coin := range coins {
+	for i := 1; i <= n; i++ {
+
+coin = [1]
+    (1)      (1)      (1)
+3 ------ 2 ------ 1 ------ 0
+
+coin = [1,2]
+    (1)      (1)     (1)
+/------ 2 ------ 1 ------ 0
+3
+\------- 1 ------ 0
+    (2)     (1)
+
+coin = [1,2,3]
+    (1)     (1)      (1)
+/------ 2 ------ 1 ------ 0
+|
+|  (3)
+3 ------ 0
+|
+|
+\------- 1 ------ 0
+    (2)       (1)
+Answer: 3
+
+
+With duplicates
+for i := 1; i <= n; i++ {
+	for _, coin := range coins {
+
+coins = [1]
+     (1)
+1 ------- 0
+coins = [1,2]
+    (1)       (1)
+/------- 1 ------- 0
+2
+\--------0
+    (2)
+coins = [1,2,3]
+             (1)      (1)
+   (1)   /------- 1 ------- 0
+/------ 2
+3        \--------0
+|              (2)
+|  (2)     (1)
+|----- 1 ----- 0
+|
+|  (3)
+|----- 0
+Answer: 4
+*/
 fun coinChangeUniqueWays(n: Int, coins: IntArray): Int {
     val dp = MutableList(n + 1) { col ->
         MutableList(coins.size) {
@@ -135,6 +194,27 @@ fun coinChangeUniqueWays(n: Int, coins: IntArray): Int {
 }
 
 
+// Find the min. number of coins to make a total of size n
+// given an array of coins
+fun changeMaking(n: Int, coins: IntArray): Int {
+    val dp = MutableList(n + 1) { 0 }
+
+    dp[0] = 0
+    for (i in 1..n) {
+        dp[i] = Int.MAX_VALUE
+        for(coin in coins) {
+            if(i >= coin && 1 + dp[i - coin] != Int.MIN_VALUE) {
+                dp[i] = min(dp[i], 1 + dp[i - coin])
+            }
+        }
+    }
+
+    return if(dp[n] == Int.MAX_VALUE) {
+        -1
+    } else {
+        dp[n]
+    }
+}
 
 
 
