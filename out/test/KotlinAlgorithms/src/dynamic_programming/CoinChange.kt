@@ -106,14 +106,34 @@ fun coinChangeEvenCoins(n: Int, coins: IntArray): Int {
         }
     }
 
-    dp[1][0] = 1
-
-    println(dp.joinToString())
     return dp[n][1]
 }
 
 
+fun coinChangeUniqueWays(n: Int, coins: IntArray): Int {
+    val dp = MutableList(n + 1) { col ->
+        MutableList(coins.size) {
+            if (col == 0) {
+                return@MutableList 1
+            }
+            return@MutableList 0
+        }
+    }
 
+    for (i in 0..n) {
+        for(j in coins.indices) {
+            for (k in 0..j) {
+                if (i-coins[k] < 0) {
+                    continue
+                }
+                dp[i][j] += dp[i-coins[k]][k]
+            }
+        }
+    }
+
+    println(dp.joinToString())
+    return dp[n][coins.size - 1]
+}
 
 
 
